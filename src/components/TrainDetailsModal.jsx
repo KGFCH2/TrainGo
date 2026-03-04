@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX, FiMapPin, FiClock, FiActivity } from 'react-icons/fi';
 import { getTrainTypeBadgeColor, getStatusColor, getStatusBg } from '../utils/helpers';
-import { useEffect } from 'react';
 
 export default function TrainDetailsModal({ train, isOpen, onClose }) {
     useEffect(() => {
@@ -18,7 +18,7 @@ export default function TrainDetailsModal({ train, isOpen, onClose }) {
 
     if (!train) return null;
 
-    return (
+    return createPortal(
         <AnimatePresence>
             {isOpen && (
                 <div className="fixed inset-0 z-[9999] flex items-center justify-center p-2 sm:p-4">
@@ -33,7 +33,9 @@ export default function TrainDetailsModal({ train, isOpen, onClose }) {
 
                     {/* Modal Content - Centered */}
                     <motion.div
-                        layoutId={`train-card-${train.trainNo}`}
+                        initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.8, y: 20 }}
                         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
                         className="relative w-full max-w-2xl bg-surface-900 border border-white/[0.08] rounded-2xl shadow-2xl overflow-hidden max-h-[95vh] flex flex-col mx-2 sm:mx-0 z-10"
                     >
@@ -132,6 +134,7 @@ export default function TrainDetailsModal({ train, isOpen, onClose }) {
                     </motion.div>
                 </div>
             )}
-        </AnimatePresence>
+        </AnimatePresence>,
+        document.body
     );
 }
