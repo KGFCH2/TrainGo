@@ -9,220 +9,218 @@ export function generateTicketPDF(booking) {
 
     const pageWidth = doc.internal.pageSize.getWidth();
     const margin = 15;
-    let y = 15;
+    let y = 0;
 
-    // Colors
-    const saffron = [255, 153, 51];
-    const green = [19, 136, 8];
-    const ashoka = [0, 0, 128];
+    // Colors - Unified Palette
+    const primary = [15, 23, 42]; // Slate 900
+    const accent = [59, 130, 246]; // Blue 500
+    const textDark = [30, 41, 59]; // Slate 800
+    const textGray = [100, 116, 139]; // Slate 500
     const white = [255, 255, 255];
-    const dark = [30, 30, 30];
+    const border = [226, 232, 240]; // Slate 200
 
-    // Header background
-    doc.setFillColor(...ashoka);
-    doc.rect(0, 0, pageWidth, 45, 'F');
+    // Top Stripe
+    doc.setFillColor(...accent);
+    doc.rect(0, 0, pageWidth, 2, 'F');
+    y = 2;
 
-    // Tricolor stripe
-    doc.setFillColor(...saffron);
-    doc.rect(0, 0, pageWidth, 3, 'F');
-    doc.setFillColor(...white);
-    doc.rect(0, 3, pageWidth, 3, 'F');
-    doc.setFillColor(...green);
-    doc.rect(0, 6, pageWidth, 3, 'F');
+    // Header Area
+    doc.setFillColor(248, 250, 252);
+    doc.rect(0, y, pageWidth, 35, 'F');
 
-    // Header text
-    doc.setTextColor(...white);
+    doc.setTextColor(...primary);
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(22);
-    doc.text('WB_TrainGo', pageWidth / 2, 22, { align: 'center' });
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'normal');
-    doc.text('West Bengal Railway Management System', pageWidth / 2, 30, { align: 'center' });
-
-    // Train icon (simple SVG-like drawing)
     doc.setFontSize(24);
-    doc.text('WB TrainGo', margin, 40);
-    doc.setFontSize(8);
-    doc.setTextColor(200, 200, 200);
-    doc.text('E-Ticket / Boarding Pass', pageWidth - margin, 38, { align: 'right' });
+    doc.text('TrainGo', margin, y + 15);
 
-    y = 55;
-
-    // Ticket ID and PNR section
-    doc.setFillColor(245, 245, 250);
-    doc.roundedRect(margin, y, pageWidth - 2 * margin, 20, 3, 3, 'F');
-    doc.setDrawColor(...ashoka);
-    doc.setLineWidth(0.5);
-    doc.roundedRect(margin, y, pageWidth - 2 * margin, 20, 3, 3, 'S');
-
-    doc.setTextColor(...ashoka);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(11);
-    doc.text(`Ticket ID: ${booking.ticketId}`, margin + 5, y + 8);
-    doc.text(`PNR: ${booking.pnr}`, pageWidth - margin - 5, y + 8, { align: 'right' });
     doc.setFontSize(9);
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(80, 80, 80);
-    doc.text(`Booking Date: ${new Date(booking.bookingDate).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}`, margin + 5, y + 15);
-    doc.text(`Status: ${booking.status}`, pageWidth - margin - 5, y + 15, { align: 'right' });
+    doc.setTextColor(...textGray);
+    doc.text('WEST BENGAL RAILWAY MANAGEMENT', margin, y + 22);
 
-    y += 28;
-
-    // Train details box
-    doc.setFillColor(240, 248, 255);
-    doc.roundedRect(margin, y, pageWidth - 2 * margin, 30, 3, 3, 'F');
-    doc.setDrawColor(...saffron);
-    doc.setLineWidth(0.8);
-    doc.roundedRect(margin, y, pageWidth - 2 * margin, 30, 3, 3, 'S');
-
-    doc.setTextColor(...dark);
+    doc.setTextColor(...primary);
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(14);
-    doc.text(`${booking.trainNo} - ${booking.trainName}`, pageWidth / 2, y + 10, { align: 'center' });
-
     doc.setFontSize(10);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(60, 60, 60);
-    const trainType = booking.trainType || 'Express';
-    doc.text(`Type: ${trainType}`, pageWidth / 2, y + 17, { align: 'center' });
+    doc.text('ELECTRONIC TICKET', pageWidth - margin, y + 12, { align: 'right' });
 
-    // Source → Destination
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(12);
-    doc.setTextColor(...ashoka);
-    doc.text(booking.source, margin + 10, y + 26);
-    doc.text('→', pageWidth / 2, y + 26, { align: 'center' });
-    doc.text(booking.destination, pageWidth - margin - 10, y + 26, { align: 'right' });
-
-    y += 38;
-
-    // Journey details
-    doc.setFillColor(255, 255, 255);
-    doc.roundedRect(margin, y, pageWidth - 2 * margin, 25, 3, 3, 'FD');
-
-    const colWidth = (pageWidth - 2 * margin) / 4;
-    const detailsY = y + 8;
-
-    doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
-    doc.setTextColor(100, 100, 100);
-    doc.text('DEPARTURE', margin + 5, detailsY);
-    doc.text('ARRIVAL', margin + colWidth + 5, detailsY);
-    doc.text('COACH', margin + colWidth * 2 + 5, detailsY);
-    doc.text('SEAT NO.', margin + colWidth * 3 + 5, detailsY);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...textGray);
+    doc.text(`PNR: ${booking.pnr}`, pageWidth - margin, y + 18, { align: 'right' });
+    doc.text(`TICKET ID: ${booking.ticketId}`, pageWidth - margin, y + 23, { align: 'right' });
 
+    y += 45;
+
+    // Main Content Container
+    const contentWidth = pageWidth - 2 * margin;
+
+    // Section 1: Journey Summary
+    doc.setFillColor(255, 255, 255);
+    doc.setDrawColor(...border);
+    doc.setLineWidth(0.2);
+    doc.roundedRect(margin, y, contentWidth, 30, 2, 2, 'FD');
+
+    doc.setTextColor(...textGray);
+    doc.setFontSize(7);
+    doc.text('FROM', margin + 8, y + 8);
+    doc.text('TO', margin + contentWidth / 2 + 15, y + 8);
+
+    doc.setTextColor(...primary);
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(11);
-    doc.setTextColor(...dark);
-    doc.text(booking.departure || '--', margin + 5, detailsY + 8);
-    doc.text(booking.arrival || '--', margin + colWidth + 5, detailsY + 8);
-    doc.text(booking.coach || 'GEN', margin + colWidth * 2 + 5, detailsY + 8);
-    doc.text(booking.seatNo || 'WL', margin + colWidth * 3 + 5, detailsY + 8);
+    doc.setFontSize(13);
+    doc.text(booking.source, margin + 8, y + 16);
+    doc.text(booking.destination, margin + contentWidth / 2 + 15, y + 16);
 
-    y += 33;
+    // Draw an arrow or line between stations
+    doc.setDrawColor(...accent);
+    doc.setLineWidth(0.5);
+    doc.line(margin + contentWidth / 2 - 10, y + 15, margin + contentWidth / 2 + 10, y + 15);
 
-    // Passenger details
-    doc.setFillColor(...ashoka);
-    doc.rect(margin, y, pageWidth - 2 * margin, 8, 'F');
-    doc.setTextColor(...white);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...textGray);
+    doc.text(booking.departure || '--', margin + 8, y + 23);
+    doc.text(booking.arrival || '--', margin + contentWidth / 2 + 15, y + 23);
+
+    y += 35;
+
+    // Section 2: Train & Booking Details
+    doc.setFillColor(248, 250, 252);
+    doc.roundedRect(margin, y, contentWidth, 20, 2, 2, 'F');
+
+    const colWidth = contentWidth / 4;
+    doc.setFontSize(7);
+    doc.setTextColor(...textGray);
+    doc.text('TRAIN', margin + 8, y + 7);
+    doc.text('CLASS / COACH', margin + colWidth + 8, y + 7);
+    doc.text('SEAT NO.', margin + colWidth * 2 + 8, y + 7);
+    doc.text('STATUS', margin + colWidth * 3 + 8, y + 7);
+
+    doc.setTextColor(...primary);
     doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.text(`${booking.trainNo} - ${booking.trainName}`, margin + 8, y + 13);
+    doc.text(`${booking.coach || 'GEN'}`, margin + colWidth + 8, y + 13);
+    doc.text(`${booking.seatNo || 'WL'}`, margin + colWidth * 2 + 8, y + 13);
+    doc.text(`${booking.status}`, margin + colWidth * 3 + 8, y + 13);
+
+    y += 25;
+
+    // Section 3: Passenger Information
+    doc.setTextColor(...primary);
     doc.setFontSize(10);
-    doc.text('PASSENGER DETAILS', margin + 5, y + 6);
-    y += 12;
+    doc.setFont('helvetica', 'bold');
+    doc.text('PASSENGER DETAILS', margin, y + 5);
+    y += 8;
+
+    // Table Header
+    doc.setFillColor(...primary);
+    doc.rect(margin, y, contentWidth, 7, 'F');
+    doc.setTextColor(...white);
+    doc.setFontSize(8);
+    doc.text('S.NO', margin + 5, y + 5);
+    doc.text('NAME', margin + 20, y + 5);
+    doc.text('AGE', margin + 110, y + 5);
+    doc.text('GENDER', margin + 140, y + 5);
+    y += 7;
 
     const passengers = booking.passengers || [{ name: booking.passengerName, age: booking.age, gender: booking.gender }];
     passengers.forEach((p, idx) => {
-        doc.setFillColor(idx % 2 === 0 ? 250 : 240, idx % 2 === 0 ? 250 : 240, idx % 2 === 0 ? 255 : 245);
-        doc.rect(margin, y, pageWidth - 2 * margin, 8, 'F');
-        doc.setTextColor(40, 40, 40);
+        if (idx % 2 === 0) doc.setFillColor(248, 250, 252);
+        else doc.setFillColor(255, 255, 255);
+        doc.rect(margin, y, contentWidth, 8, 'F');
+
+        doc.setTextColor(...textDark);
         doc.setFont('helvetica', 'normal');
-        doc.setFontSize(9);
-        doc.text(`${idx + 1}. ${p.name}`, margin + 5, y + 6);
-        doc.text(`Age: ${p.age}`, margin + 80, y + 6);
-        doc.text(`Gender: ${p.gender}`, margin + 110, y + 6);
+        doc.text(`${idx + 1}`, margin + 5, y + 5.5);
+        doc.text(p.name, margin + 20, y + 5.5);
+        doc.text(`${p.age}`, margin + 110, y + 5.5);
+        doc.text(p.gender, margin + 140, y + 5.5);
         y += 8;
     });
 
-    y += 8;
+    y += 10;
 
-    // Fare details
-    doc.setDrawColor(200, 200, 200);
-    doc.setLineWidth(0.3);
-    doc.line(margin, y, pageWidth - margin, y);
-    y += 5;
+    // Section 4: Fare & QR
+    const bottomY = y;
 
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(10);
-    doc.setTextColor(...ashoka);
-    doc.text('FARE SUMMARY', margin + 5, y + 3);
-    y += 8;
+    // QR Box left
+    doc.setDrawColor(...border);
+    doc.roundedRect(margin, bottomY, 35, 35, 1, 1, 'S');
 
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-    doc.setTextColor(60, 60, 60);
-    doc.text(`Base Fare:`, margin + 5, y + 3);
-    doc.text(`₹${booking.fare || 0}`, pageWidth - margin - 5, y + 3, { align: 'right' });
-    y += 6;
-    doc.text(`GST (5%):`, margin + 5, y + 3);
-    const gst = Math.round((booking.fare || 0) * 0.05);
-    doc.text(`₹${gst}`, pageWidth - margin - 5, y + 3, { align: 'right' });
-    y += 6;
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(11);
-    doc.text(`Total:`, margin + 5, y + 3);
-    doc.text(`₹${(booking.fare || 0) + gst}`, pageWidth - margin - 5, y + 3, { align: 'right' });
-
-    y += 15;
-
-    // QR Code placeholder
-    doc.setFillColor(240, 240, 240);
-    doc.roundedRect(pageWidth / 2 - 20, y, 40, 40, 2, 2, 'F');
-    doc.setTextColor(150, 150, 150);
-    doc.setFontSize(7);
-    doc.text('QR CODE', pageWidth / 2, y + 22, { align: 'center' });
-
-    // Draw a simple pattern as QR placeholder
-    for (let i = 0; i < 8; i++) {
-        for (let j = 0; j < 8; j++) {
-            if ((i + j) % 2 === 0) {
-                doc.setFillColor(40, 40, 40);
-                doc.rect(pageWidth / 2 - 16 + i * 4, y + 4 + j * 4, 3, 3, 'F');
+    // Simple QR Pattern
+    doc.setFillColor(...textDark);
+    for (let i = 0; i < 7; i++) {
+        for (let j = 0; j < 7; j++) {
+            if ((i * j + i + j) % 3 === 0) {
+                doc.rect(margin + 4 + i * 4, bottomY + 4 + j * 4, 3, 3, 'F');
             }
         }
     }
-
-    y += 48;
-
-    // Disclaimer
-    doc.setDrawColor(200, 200, 200);
-    doc.line(margin, y, pageWidth - margin, y);
-    y += 5;
-    doc.setFont('helvetica', 'italic');
-    doc.setFontSize(7);
-    doc.setTextColor(120, 120, 120);
-    doc.text('Disclaimer: No refund for mistakenly booked tickets. Please verify all details before boarding.', margin, y + 3);
-    doc.text('This is a computer-generated ticket and does not require a signature.', margin, y + 8);
-    doc.text('Carry a valid photo ID during travel.', margin, y + 13);
-
-    // Footer
-    const footerY = doc.internal.pageSize.getHeight() - 15;
-    doc.setFillColor(...green);
-    doc.rect(0, footerY, pageWidth, 15, 'F');
-    doc.setFillColor(...saffron);
-    doc.rect(0, footerY, pageWidth, 2, 'F');
-
-    doc.setTextColor(...white);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(8);
-    doc.text('Powered by TrainGo', pageWidth / 2, footerY + 8, { align: 'center' });
     doc.setFontSize(6);
+    doc.setTextColor(...textGray);
+    doc.text('SECURE QR TICKET', margin + 17.5, bottomY + 33, { align: 'center' });
+
+    // Fare summary right
+    const fareX = margin + 80;
+    doc.setTextColor(...primary);
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.text('FARE SUMMARY', fareX, bottomY + 5);
+
     doc.setFont('helvetica', 'normal');
-    doc.text('© 2025 WB_TrainGo | West Bengal Railway Management System', pageWidth / 2, footerY + 12, { align: 'center' });
+    doc.setFontSize(8);
+    doc.setTextColor(...textGray);
+    doc.text('Ticket Fare:', fareX, bottomY + 12);
+    doc.text(`Rs. ${booking.fare || 0}.00`, pageWidth - margin, bottomY + 12, { align: 'right' });
+
+    doc.text('GST (5%):', fareX, bottomY + 18);
+    const gst = Math.round((booking.fare || 0) * 0.05);
+    doc.text(`Rs. ${gst}.00`, pageWidth - margin, bottomY + 18, { align: 'right' });
+
+    doc.setDrawColor(...border);
+    doc.line(fareX, bottomY + 22, pageWidth - margin, bottomY + 22);
+
+    doc.setTextColor(...accent);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.text('TOTAL AMOUNT:', fareX, bottomY + 28);
+    doc.text(`Rs. ${(booking.fare || 0) + gst}.00`, pageWidth - margin, bottomY + 28, { align: 'right' });
+
+    y = bottomY + 45;
+
+    // Important Info
+    doc.setFillColor(254, 252, 232); // Light yellow
+    doc.roundedRect(margin, y, contentWidth, 20, 1, 1, 'F');
+    doc.setTextColor(133, 77, 14); // Darker brown
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'bold');
+    doc.text('IMPORTANT INFORMATION', margin + 5, y + 6);
+    doc.setFont('helvetica', 'normal');
+    const info = [
+        '1. Carry a valid original photo identity proof during the journey.',
+        '2. This is a computer-generated simulated ticket. No physical signature is required.',
+        '3. Please reach the station at least 30 minutes before the scheduled departure.'
+    ];
+    info.forEach((line, idx) => {
+        doc.text(line, margin + 5, y + 11 + idx * 3.5);
+    });
+
+    // Simple Footer
+    const footerY = doc.internal.pageSize.getHeight() - 15;
+    doc.setDrawColor(...border);
+    doc.line(margin, footerY - 5, pageWidth - margin, footerY - 5);
+
+    doc.setTextColor(...textGray);
+    doc.setFontSize(7);
+    doc.text('This e-ticket is generated by TrainGo India - West Bengal Railway Division.', pageWidth / 2, footerY, { align: 'center' });
+    doc.text(`Generated on: ${new Date().toLocaleString()}`, pageWidth / 2, footerY + 4, { align: 'center' });
 
     return doc;
 }
 
 export function downloadTicketPDF(booking) {
     const doc = generateTicketPDF(booking);
-    doc.save(`WB_TrainGo_Ticket_${booking.ticketId}.pdf`);
+    doc.save(`TrainGo_Ticket_${booking.ticketId}.pdf`);
 }
+

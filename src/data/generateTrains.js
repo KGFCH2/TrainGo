@@ -15,37 +15,35 @@ const rng = seededRandom(42);
 // Train name prefixes/suffixes based on West Bengal culture
 const trainNames = {
     Express: [
-        'Rupashi Bangla', 'Kanchanjunga', 'Darjeeling Mail', 'Padatik',
-        'Teesta Torsha', 'Uttar Banga', 'Ganadevta', 'Kaviguru',
-        'Kanchankanya', 'Saraighat', 'Subarnarekha', 'Aranyak',
-        'Bhagirathi', 'Mayurakshi', 'Ajoy', 'Damodar',
-        'Sunderbans', 'Mahananda', 'Jaldhaka', 'Torsha',
-        'Hooghly', 'Ganges', 'Dooars', 'Shantiniketan',
-        'Bishnupur', 'Tarapith', 'Howrah-Amta', 'Puri',
-        'Midnapore', 'Digha', 'Jhargram', 'Bankura',
-        'Purulia', 'Asansol', 'Durgapur', 'Malda',
-        'Rampurhat', 'Nalhati', 'Azimganj', 'Krishnanagar',
-        'Ranaghat', 'Nabadwip', 'Katwa', 'Bolpur',
-        'Haldia', 'Contai', 'Tamluk', 'Siliguri',
-        'Jalpaiguri', 'Cooch Behar', 'Alipurduar', 'Raiganj',
-        'Balurghat', 'Bangaon', 'Barasat', 'Kalyani',
+        'Darjeeling Mail', 'Padatik', 'Teesta Torsha', 'Uttar Banga',
+        'Kanchanjunga', 'Saraighat', 'Ganadevta', 'Kaviguru',
+        'Kanchankanya', 'Bhagirathi', 'Mayurakshi', 'Hooghly',
+        'Ganges', 'Gour', 'Ganga Sagar', 'Haldia', 'Kalka Mail',
+        'Gitanjali', 'Gnaneshwari Deluxe', 'Samarsata', 'Ajoy', 'Damodar',
     ],
     Superfast: [
-        'Shatabdi', 'Jan Shatabdi', 'Duronto', 'Rajdhani',
-        'Garib Rath', 'Humsafar', 'Tejas', 'Vande Bharat',
-        'Amrit Bharat', 'Nandankanan', 'Sikkim Mahananda',
+        'Vande Bharat', 'Shatabdi', 'Jan Shatabdi', 'Duronto',
+        'Rajdhani', 'Humsafar', 'Yuva', 'Kalka Mail',
+        'Nandankanan', 'Amrit Bharat',
     ],
     Local: [
-        'Local', 'EMU', 'Suburban',
+        'Barddhaman Local', 'Midnapore Local', 'Kharagpur Local',
+        'Arta Local', 'Bandel Local', 'Tarakeswar Local',
+        'Goghat Local', 'Gurap Local', 'Seoraphuli Local',
+        'Katwa Local', 'Bangaon Local', 'Krishnanagar Local',
+        'Naihati Local', 'Shantipur Local', 'Gede Local',
+        'Barrackpore Local', 'Kalyani Simanta Local', 'Dankuni Local',
+        'Diamond Harbour Local', 'Budge Budge Local', 'Canning Local',
+        'Lakshmikantapur Local', 'Namkhana Local', 'Sonarpur Local',
     ],
     MEMU: [
-        'MEMU',
+        'MEMU', 'Asansol MEMU', 'Adra MEMU', 'Rampurhat MEMU',
     ],
     Passenger: [
-        'Passenger',
+        'Passenger', 'Lalgola Passenger', 'Azimganj Passenger',
     ],
     Intercity: [
-        'Intercity',
+        'Intercity', 'Rupashi Bangla', 'Aranyak', 'Subarnarekha',
     ],
 };
 
