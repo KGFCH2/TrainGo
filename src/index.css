@@ -1,0 +1,297 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   WB TrainGo — Professional Global Styles
+   ============================================ */
+
+@layer base {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+    }
+
+    body {
+        @apply bg-surface-950 text-white font-sans;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-surface-950;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-primary-600/40 rounded-full;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        @apply bg-primary-500/60;
+    }
+
+    ::selection {
+        @apply bg-primary-500/25 text-white;
+    }
+}
+
+@layer components {
+
+    /* Glass panel */
+    .glass {
+        @apply bg-white/[0.04] backdrop-blur-2xl border border-white/[0.06] rounded-2xl;
+    }
+
+    .glass:hover {
+        @apply border-white/[0.1];
+    }
+
+    /* Surface card */
+    .card {
+        @apply bg-surface-900/80 border border-white/[0.06] rounded-2xl transition-all duration-300;
+    }
+
+    .card:hover {
+        @apply border-primary-500/20 shadow-lg shadow-primary-500/5;
+    }
+
+    /* Section container */
+    .container-section {
+        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+
+    /* Section heading */
+    .heading-section {
+        @apply text-3xl sm:text-4xl lg:text-5xl font-display font-bold tracking-tight;
+    }
+
+    /* Tricolor signature bar */
+    .tricolor-bar {
+        height: 3px;
+        background: linear-gradient(90deg, #FF9933 33.33%, #FFFFFF 33.33% 66.66%, #138808 66.66%);
+    }
+
+    /* Professional input */
+    .input-field {
+        @apply w-full px-4 py-3 bg-surface-900/60 border border-white/[0.08] rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-primary-500/50 focus:ring-1 focus:ring-primary-500/20 transition-all duration-200;
+    }
+
+    /* Professional button */
+    .btn-primary {
+        @apply px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300 bg-primary-600 hover:bg-primary-500 hover:shadow-lg hover:shadow-primary-500/25 active:scale-[0.98];
+    }
+
+    .btn-secondary {
+        @apply px-6 py-3 rounded-xl font-medium text-white transition-all duration-300 bg-white/[0.06] border border-white/[0.08] hover:bg-white/[0.1] hover:border-white/[0.15] active:scale-[0.98];
+    }
+
+    .btn-ghost {
+        @apply px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/[0.06] transition-all duration-200;
+    }
+
+    /* Seat styles */
+    .seat-available {
+        @apply bg-surface-800 border-surface-700 hover:bg-primary-500/10 hover:border-primary-500/30 cursor-pointer;
+    }
+
+    .seat-selected {
+        @apply bg-primary-500/20 border-primary-500 text-primary-400;
+    }
+
+    .seat-booked {
+        @apply bg-red-900/20 border-red-800/30 text-red-500/50 cursor-not-allowed;
+    }
+
+    /* Status badges */
+    .badge {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    }
+
+    .badge-success {
+        @apply bg-emerald-500/10 text-emerald-400 border border-emerald-500/20;
+    }
+
+    .badge-danger {
+        @apply bg-red-500/10 text-red-400 border border-red-500/20;
+    }
+
+    .badge-warning {
+        @apply bg-amber-500/10 text-amber-400 border border-amber-500/20;
+    }
+
+    .badge-info {
+        @apply bg-primary-500/10 text-primary-400 border border-primary-500/20;
+    }
+
+    /* Flip card */
+    .flip-card {
+        perspective: 1000px;
+    }
+
+    .flip-card-inner {
+        transform-style: preserve-3d;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+        backface-visibility: hidden;
+    }
+
+    .flip-card-back {
+        transform: rotateY(180deg);
+    }
+
+    /* Perspective for 3D transforms */
+    .perspective-1000 {
+        perspective: 1000px;
+    }
+}
+
+@layer utilities {
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    .text-gradient {
+        @apply bg-clip-text text-transparent;
+        background-image: linear-gradient(135deg, #3b82f6, #60a5fa, #93c5fd);
+    }
+
+    .text-gradient-warm {
+        @apply bg-clip-text text-transparent;
+        background-image: linear-gradient(135deg, #f97316, #fb923c, #fbbf24);
+    }
+}
+
+/* ============================================
+   Hero Background — Aurora Animations
+   ============================================ */
+
+.hero-aurora {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
+.hero-aurora-layer {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.35;
+}
+
+.hero-aurora-1 {
+    width: 60%;
+    height: 50%;
+    top: -10%;
+    left: 10%;
+    background: radial-gradient(ellipse at center,
+            rgba(59, 130, 246, 0.3) 0%,
+            rgba(99, 102, 241, 0.15) 40%,
+            transparent 70%);
+    animation: aurora-drift-1 20s ease-in-out infinite;
+}
+
+.hero-aurora-2 {
+    width: 50%;
+    height: 45%;
+    top: 30%;
+    right: -5%;
+    background: radial-gradient(ellipse at center,
+            rgba(139, 92, 246, 0.25) 0%,
+            rgba(6, 182, 212, 0.1) 50%,
+            transparent 70%);
+    animation: aurora-drift-2 25s ease-in-out infinite;
+}
+
+.hero-aurora-3 {
+    width: 45%;
+    height: 40%;
+    bottom: -5%;
+    left: 25%;
+    background: radial-gradient(ellipse at center,
+            rgba(59, 130, 246, 0.2) 0%,
+            rgba(249, 115, 22, 0.06) 50%,
+            transparent 70%);
+    animation: aurora-drift-3 22s ease-in-out infinite;
+}
+
+@keyframes aurora-drift-1 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(8%, 5%) scale(1.05) rotate(2deg);
+    }
+
+    50% {
+        transform: translate(-5%, 10%) scale(0.95) rotate(-1deg);
+    }
+
+    75% {
+        transform: translate(3%, -3%) scale(1.02) rotate(1deg);
+    }
+}
+
+@keyframes aurora-drift-2 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+
+    33% {
+        transform: translate(-10%, 6%) scale(1.08) rotate(-2deg);
+    }
+
+    66% {
+        transform: translate(6%, -8%) scale(0.96) rotate(1.5deg);
+    }
+}
+
+@keyframes aurora-drift-3 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    30% {
+        transform: translate(12%, -5%) scale(1.06);
+    }
+
+    60% {
+        transform: translate(-8%, 3%) scale(0.94);
+    }
+}
+
+/* Dot grid pattern */
+.hero-dot-grid {
+    background-image: radial-gradient(circle, rgba(148, 163, 184, 0.4) 1px, transparent 1px);
+    background-size: 32px 32px;
+}
