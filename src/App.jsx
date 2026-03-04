@@ -13,6 +13,7 @@ import { FiSearch, FiCheckCircle, FiDownload } from 'react-icons/fi';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Hero from './components/Hero';
+import Loader from './components/Loader';
 
 /* Lazy-loaded pages */
 const TrainList = lazy(() => import('./components/TrainList'));
@@ -218,6 +219,7 @@ function ScrollToTop() {
 function AppContent() {
     const [trains, setTrains] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [showSplash, setShowSplash] = useState(true);
     const location = useLocation();
 
     useEffect(() => {
@@ -230,15 +232,13 @@ function AppContent() {
         }
     }, []);
 
-    if (loading) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-surface-950">
-                <div className="flex flex-col items-center space-y-4">
-                    <div className="w-10 h-10 border-2 border-primary-500/30 border-t-primary-500 rounded-full animate-spin" />
-                    <span className="text-sm text-gray-500 font-display">Initializing TrainGo...</span>
-                </div>
-            </div>
-        );
+    useEffect(() => {
+        const timer = setTimeout(() => setShowSplash(false), 2500);
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading || showSplash) {
+        return <Loader />;
     }
 
     return (
