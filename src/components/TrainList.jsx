@@ -130,7 +130,7 @@ export default function TrainList() {
                     <AnimatePresence mode="popLayout">
                         {trains.slice(0, searched ? trains.length : 30).map((train, i) => (
                             <motion.div key={train.trainNo} layout initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ delay: i * 0.03 }}>
-                                <TrainCard train={train} onBook={handleBook} isFlippable />
+                                <TrainCard train={train} onBook={handleBook} />
                             </motion.div>
                         ))}
                     </AnimatePresence>
