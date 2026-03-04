@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import { FiMenu, FiX, FiUser } from 'react-icons/fi';
+import { FaTrain } from 'react-icons/fa';
 
 const navLinks = [
     { to: '/', label: 'Home' },
@@ -32,7 +33,7 @@ export default function Navbar() {
     return (
         <nav
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-                ? 'bg-surface-950/80 backdrop-blur-2xl border-b border-white/[0.06] shadow-lg shadow-black/10'
+                ? 'bg-surface-950/40 backdrop-blur-3xl border-b border-white/[0.05] shadow-2xl shadow-black/20'
                 : 'bg-transparent'
                 }`}
         >
@@ -42,14 +43,16 @@ export default function Navbar() {
             <div className="container-section">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
-                    <Link to="/" className="flex items-center space-x-2.5 group">
+                    <Link
+                        to="/"
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                        className="flex items-center space-x-2 group"
+                    >
                         <div className="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center">
-                            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                            </svg>
+                            <FaTrain className="w-4 h-4 text-white" />
                         </div>
                         <span className="font-display font-bold text-lg text-white group-hover:text-primary-400 transition-colors">
-                            WB TrainGo
+                            TrainGo
                         </span>
                     </Link>
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { FiSearch, FiArrowRight, FiActivity, FiMapPin, FiClock, FiDatabase } from 'react-icons/fi';
 import HeroBackground from './HeroBackground';
 
 const typewriterLines = [
@@ -77,10 +78,10 @@ export default function Hero() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
-                    className="heading-section text-4xl sm:text-5xl md:text-7xl mb-4"
+                    className="heading-section text-4xl sm:text-6xl md:text-7xl mb-4"
                 >
-                    <span className="text-white">WB </span>
-                    <span className="text-blue-400">TrainGo</span>
+                    <span className="text-white">Train</span>
+                    <span className="text-blue-400">Go</span>
                 </motion.h1>
 
                 {/* Typewriter */}
@@ -88,12 +89,12 @@ export default function Hero() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.8 }}
-                    className="mb-8 h-10"
+                    className="mb-8 h-8 sm:h-10"
                 >
-                    <span className="text-xl sm:text-2xl md:text-3xl font-display font-medium text-gray-300">
+                    <span className="text-lg sm:text-2xl md:text-3xl font-display font-medium text-gray-300">
                         {displayText}
                     </span>
-                    <span className="inline-block w-0.5 h-7 bg-primary-400 ml-1 animate-blink" />
+                    <span className="inline-block w-0.5 h-6 sm:h-7 bg-primary-400 ml-1 animate-blink" />
                 </motion.div>
 
                 {/* Subtitle */}
@@ -101,7 +102,7 @@ export default function Hero() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1, duration: 0.8 }}
-                    className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed"
+                    className="text-base sm:text-lg text-gray-400 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed"
                 >
                     Navigate West Bengal's extensive railway network with precision.
                     Search 1,000+ trains, compare routes, and book your journey — all in one platform.
@@ -112,14 +113,15 @@ export default function Hero() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1.3, duration: 0.8 }}
-                    className="flex flex-col sm:flex-row items-center justify-center gap-4"
+                    className="flex flex-col sm:flex-row items-center justify-center gap-4 px-4"
                 >
-                    <a href="/trains" className="btn-primary text-lg px-8 py-4 flex items-center space-x-2">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                    <a href="/trains" className="btn-primary text-lg sm:text-xl px-8 py-4 sm:px-10 sm:py-5 flex items-center space-x-3 w-full sm:w-auto justify-center shadow-2xl shadow-primary-500/20">
+                        <FiSearch className="w-5 h-5 sm:w-6 sm:h-6" />
                         <span>Search Trains</span>
                     </a>
-                    <a href="/booking" className="btn-secondary text-lg px-8 py-4">
-                        Book Tickets
+                    <a href="/booking" className="btn-secondary text-lg sm:text-xl px-8 py-4 sm:px-10 sm:py-5 flex items-center space-x-3 w-full sm:w-auto justify-center">
+                        <FiArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                        <span>Book Tickets</span>
                     </a>
                 </motion.div>
 
@@ -128,23 +130,26 @@ export default function Hero() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.8, duration: 1 }}
-                    className="mt-20 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto"
+                    className="mt-12 sm:mt-20 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 max-w-4xl mx-auto px-4"
                 >
                     {[
-                        { value: '1,000+', label: 'Active Trains' },
-                        { value: '200+', label: 'Stations' },
-                        { value: '23', label: 'Districts' },
-                        { value: '30+', label: 'Routes' },
+                        { value: '1,000+', label: 'Active Trains', icon: <FiActivity className="text-primary-400" /> },
+                        { value: '200+', label: 'Stations', icon: <FiMapPin className="text-primary-400" /> },
+                        { value: '23', label: 'Districts', icon: <FiClock className="text-primary-400" /> },
+                        { value: '30+', label: 'Routes', icon: <FiDatabase className="text-primary-400" /> },
                     ].map((stat, i) => (
                         <motion.div
                             key={stat.label}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1.8 + i * 0.15 }}
-                            className="text-center p-4 rounded-xl glass"
+                            className="text-center p-4 sm:p-6 rounded-2xl glass hover:bg-white/[0.08] transition-all group"
                         >
-                            <div className="text-2xl font-display font-bold text-white">{stat.value}</div>
-                            <div className="text-xs text-gray-500 mt-1 uppercase tracking-wider">{stat.label}</div>
+                            <div className="flex justify-center mb-2 sm:mb-3 text-lg sm:text-xl group-hover:scale-110 transition-transform">
+                                {stat.icon}
+                            </div>
+                            <div className="text-xl sm:text-3xl font-display font-bold text-white mb-0.5 sm:mb-1">{stat.value}</div>
+                            <div className="text-[8px] sm:text-[10px] text-gray-400 uppercase tracking-[0.2em] font-bold">{stat.label}</div>
                         </motion.div>
                     ))}
                 </motion.div>

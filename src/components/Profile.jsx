@@ -41,49 +41,53 @@ export default function Profile() {
 
     if (!isAuthenticated) {
         return (
-            <div className="flex min-h-[70vh] rounded-3xl overflow-hidden glass border border-white/[0.05] shadow-2xl">
+            <div className="flex flex-col lg:flex-row max-w-lg lg:max-w-4xl mx-auto min-h-[500px] lg:min-h-[600px] rounded-3xl overflow-hidden glass border border-white/[0.05] shadow-2xl">
                 {/* Left Side: Video */}
-                <div className="hidden lg:block w-1/2 relative overflow-hidden group">
+                <div className="w-full lg:w-5/12 h-48 lg:h-auto relative overflow-hidden group">
                     <video
                         autoPlay
                         loop
                         muted
                         playsInline
-                        className="absolute inset-0 w-full h-full object-cover grayscale-[0.2] contrast-[1.1]"
+                        className="absolute inset-0 w-full h-full object-cover grayscale-0 contrast-[1.2] brightness-[1.2]"
                     >
-                        <source src="https://assets.mixkit.co/videos/preview/mixkit-train-passing-by-under-a-bridge-4447-large.mp4" type="video/mp4" />
+                        <source src="/Train_Video_Generation.mp4" type="video/mp4" />
                     </video>
-                    <div className="absolute inset-0 bg-gradient-to-r from-surface-950/40 to-surface-950" />
-                    <div className="absolute bottom-12 left-12 right-12">
+                    <div className="absolute inset-0 bg-gradient-to-r from-surface-950/20 to-surface-950/80" />
+                    <div className="absolute bottom-10 left-10 right-10">
                         <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.5 }}
                         >
-                            <h3 className="text-3xl font-display font-bold text-white mb-2">Track Your Journey</h3>
-                            <p className="text-gray-300">Join thousands of travelers navigating West Bengal's railway network with precision and ease.</p>
+                            <h3 className="text-2xl font-bold text-white mb-2">Track Your Journey</h3>
+                            <p className="text-sm text-gray-400 leading-relaxed italic">Join thousands of travelers navigating West Bengal's railway network with precision and ease.</p>
                         </motion.div>
                     </div>
                 </div>
 
                 {/* Right Side: Form */}
-                <div className="w-full lg:w-1/2 p-12 bg-surface-950/50 flex flex-col justify-center">
+                <div className="w-full lg:w-7/12 p-8 sm:p-12 bg-surface-950/40 flex flex-col justify-center">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
                         className="w-full max-w-sm mx-auto"
                     >
                         <div className="text-center mb-8">
-                            <div className="w-16 h-16 mx-auto rounded-2xl bg-primary-500/10 flex items-center justify-center mb-4 border border-primary-500/20 shadow-[0_0_20px_rgba(59,130,246,0.1)]">
-                                <FiUser className="w-8 h-8 text-primary-400" />
+                            <div className="w-14 h-14 mx-auto rounded-2xl bg-primary-500/10 flex items-center justify-center mb-4 border border-primary-500/20">
+                                <FiUser className="w-7 h-7 text-primary-400" />
                             </div>
-                            <h2 className="text-3xl font-display font-bold text-white">{mode === 'login' ? 'Welcome Back' : 'Create Account'}</h2>
-                            <p className="text-gray-500 mt-2">{mode === 'login' ? 'Sign in to access your bookings' : 'Start your seamless travel today'}</p>
+                            <h2 className="text-2xl font-bold text-white uppercase tracking-tight">
+                                {mode === 'login' ? 'Sign In' : 'Join TrainGo'}
+                            </h2>
+                            <p className="text-[10px] text-gray-500 mt-2 uppercase tracking-[0.2em] font-bold">
+                                {mode === 'login' ? 'Access your bookings' : 'Start your travel today'}
+                            </p>
                         </div>
 
                         <AnimatePresence mode="wait">
                             {error && (
-                                <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-red-500/10 text-red-400 text-sm border border-red-500/20 flex items-center gap-3">
+                                <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-3 rounded-xl bg-red-500/10 text-red-400 text-xs border border-red-500/20 flex items-center gap-2">
                                     <FiX className="shrink-0" />
                                     {error}
                                 </motion.div>
@@ -92,29 +96,29 @@ export default function Profile() {
 
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Username</label>
-                                <input type="text" value={form.username} onChange={e => setForm(f => ({ ...f, username: e.target.value }))} className="input-field w-full py-3" placeholder="Enter username" />
+                                <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5 ml-1">Username</label>
+                                <input type="text" value={form.username} onChange={e => setForm(f => ({ ...f, username: e.target.value }))} className="input-field w-full py-2.5 text-sm" placeholder="Enter username" />
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Password</label>
-                                <input type="password" value={form.password} onChange={e => setForm(f => ({ ...f, password: e.target.value }))} className="input-field w-full py-3" placeholder="Enter password" onKeyDown={e => e.key === 'Enter' && (mode === 'login' ? handleLogin() : handleSignup())} />
+                                <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5 ml-1">Password</label>
+                                <input type="password" value={form.password} onChange={e => setForm(f => ({ ...f, password: e.target.value }))} className="input-field w-full py-2.5 text-sm" placeholder="Enter password" onKeyDown={e => e.key === 'Enter' && (mode === 'login' ? handleLogin() : handleSignup())} />
                             </div>
 
                             <AnimatePresence>
                                 {mode === 'signup' && (
                                     <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="space-y-4 overflow-hidden pt-2">
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Full Name *</label>
-                                            <input type="text" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} className="input-field w-full py-3" placeholder="Your full name" />
+                                            <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5 ml-1">Full Name *</label>
+                                            <input type="text" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} className="input-field w-full py-2.5 text-sm" placeholder="Your full name" />
                                         </div>
                                         <div className="grid grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Email</label>
-                                                <input type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} className="input-field w-full py-3" placeholder="Email" />
+                                                <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5 ml-1">Email</label>
+                                                <input type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} className="input-field w-full py-2.5 text-sm" placeholder="Email" />
                                             </div>
                                             <div>
-                                                <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Phone</label>
-                                                <input type="tel" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} className="input-field w-full py-3" placeholder="Phone" />
+                                                <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5 ml-1">Phone</label>
+                                                <input type="tel" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} className="input-field w-full py-2.5 text-sm" placeholder="Phone" />
                                             </div>
                                         </div>
                                     </motion.div>
@@ -123,18 +127,17 @@ export default function Profile() {
                         </div>
 
                         <motion.button
-                            whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             onClick={mode === 'login' ? handleLogin : handleSignup}
-                            className="btn-primary w-full mt-8 py-4 flex items-center justify-center space-x-3 text-lg font-bold"
+                            className="btn-primary w-full mt-8 py-3.5 flex items-center justify-center space-x-3 text-sm font-bold uppercase tracking-widest"
                         >
-                            {mode === 'login' ? <><FiLogIn className="w-5 h-5" /><span>Sign In</span></> : <><FiUserPlus className="w-5 h-5" /><span>Create Account</span></>}
+                            {mode === 'login' ? <><FiLogIn className="w-5 h-5" /><span>Sign In</span></> : <><FiUserPlus className="w-5 h-5" /><span>Get Started</span></>}
                         </motion.button>
 
-                        <p className="text-center text-gray-500 mt-6 pt-6 border-t border-white/[0.05]">
-                            {mode === 'login' ? "Don't have an account?" : 'Already have an account?'}{' '}
-                            <button onClick={() => { setMode(mode === 'login' ? 'signup' : 'login'); setError(''); }} className="text-primary-400 hover:text-primary-300 font-bold ml-1 transition-colors">
-                                {mode === 'login' ? 'Join Now' : 'Sign In instead'}
+                        <p className="text-center text-[11px] text-gray-500 mt-6 pt-6 border-t border-white/[0.05]">
+                            {mode === 'login' ? "New here?" : 'Have an account?'}{' '}
+                            <button onClick={() => { setMode(mode === 'login' ? 'signup' : 'login'); setError(''); }} className="text-primary-400 hover:text-primary-300 font-bold ml-1 transition-colors uppercase tracking-widest">
+                                {mode === 'login' ? 'Create Account' : 'Sign In'}
                             </button>
                         </p>
                     </motion.div>

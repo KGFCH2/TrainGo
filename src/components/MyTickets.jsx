@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useBooking } from '../context/BookingContext';
 import { downloadTicketPDF } from '../utils/pdfGenerator';
 import { formatDate, getStatusColor, getStatusBg } from '../utils/helpers';
-import { FiDownload, FiXCircle, FiSearch, FiFilter, FiChevronDown, FiChevronUp, FiClock, FiMapPin, FiArrowRight, FiLock } from 'react-icons/fi';
+import { FiDownload, FiXCircle, FiSearch, FiFilter, FiChevronDown, FiChevronUp, FiClock, FiMapPin, FiArrowRight, FiLock, FiActivity } from 'react-icons/fi';
 
 export default function MyTickets() {
     const { user, isAuthenticated } = useAuth();
@@ -139,8 +139,8 @@ export default function MyTickets() {
                     </AnimatePresence>
                 </div>
             ) : (
-                <div className="card p-12 text-center">
-                    <div className="text-4xl mb-3 opacity-50">🎫</div>
+                <div className="card p-12 text-center flex flex-col items-center">
+                    <FiActivity className="text-4xl text-gray-500 opacity-20 mb-3" />
                     <h3 className="text-lg font-semibold text-white mb-1">{search || filter !== 'all' ? 'No matching tickets' : 'No tickets yet'}</h3>
                     <p className="text-sm text-gray-500">{search || filter !== 'all' ? 'Try adjusting your search or filters.' : 'Book a train to see your tickets here.'}</p>
                 </div>

@@ -4,7 +4,7 @@ import { FiMail, FiPhone, FiMapPin, FiClock, FiSend, FiMessageSquare, FiHelpCirc
 
 const contactInfo = [
     { icon: FiPhone, label: 'Phone', value: '+91 33 2200 0000', sub: 'Mon–Sat, 8am–8pm IST' },
-    { icon: FiMail, label: 'Email', value: 'support@wbtraingo.in', sub: 'We reply within 24 hours' },
+    { icon: FiMail, label: 'Email', value: 'support@traingo.in', sub: 'We reply within 24 hours' },
     { icon: FiMapPin, label: 'Office', value: 'Fairlie Place, Kolkata 700001', sub: 'West Bengal, India' },
     { icon: FiClock, label: 'Hours', value: '8:00 AM – 8:00 PM', sub: 'Monday to Saturday' },
 ];

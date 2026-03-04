@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { generateAllTrains, searchTrains } from '../data/generateTrains';
 import { getAllDistricts } from '../data/stations';
 import TrainCard from './TrainCard';
+import TrainDetailsModal from './TrainDetailsModal';
 import { FiSearch, FiFilter, FiX, FiRefreshCw, FiMapPin, FiArrowRight } from 'react-icons/fi';
 
 const TRAIN_TYPES = ['All', 'Express', 'Superfast', 'Local', 'Intercity', 'Passenger', 'Mail'];
@@ -21,6 +22,10 @@ export default function TrainList() {
     const [showFilters, setShowFilters] = useState(false);
     const [searched, setSearched] = useState(false);
 
+    // Modal State
+    const [selectedTrainForModal, setSelectedTrainForModal] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     const trains = useMemo(() => {
         const results = searchTrains(allTrains, { source: from || undefined, destination: to || undefined, type: trainType !== 'All' ? trainType : undefined });
         let filtered = results;
@@ -32,9 +37,16 @@ export default function TrainList() {
     }, [allTrains, from, to, trainType, status, sortBy]);
 
     const handleSearch = useCallback(() => setSearched(true), []);
+
+    const handleViewDetails = useCallback((train) => {
+        setSelectedTrainForModal(train);
+        setIsModalOpen(true);
+    }, []);
+
     const handleBook = useCallback((train) => {
         navigate('/booking', { state: { selectedTrain: train } });
     }, [navigate]);
+
     const resetFilters = () => { setTrainType('All'); setStatus('All'); setSortBy('departure'); };
 
     return (
@@ -130,18 +142,25 @@ export default function TrainList() {
                     <AnimatePresence mode="popLayout">
                         {trains.slice(0, searched ? trains.length : 30).map((train, i) => (
                             <motion.div key={train.trainNo} layout initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ delay: i * 0.03 }}>
-                                <TrainCard train={train} onBook={handleBook} />
+                                <TrainCard train={train} onBook={handleBook} onClick={handleViewDetails} />
                             </motion.div>
                         ))}
                     </AnimatePresence>
                 </div>
             ) : (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="card p-12 text-center">
-                    <div className="text-4xl mb-3 opacity-50">🔍</div>
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="card p-12 text-center flex flex-col items-center">
+                    <FiSearch className="text-4xl text-gray-500 opacity-20 mb-3" />
                     <h3 className="text-lg font-semibold text-white mb-1">No trains found</h3>
                     <p className="text-sm text-gray-500">Try adjusting your search or filter criteria.</p>
                 </motion.div>
             )}
+
+            {/* Global Modal - Correctly positioned relative to viewport */}
+            <TrainDetailsModal
+                train={selectedTrainForModal}
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
         </div>
     );
 }

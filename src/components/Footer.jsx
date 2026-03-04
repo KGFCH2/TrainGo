@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaTrain } from 'react-icons/fa';
 
 const quickLinks = [
     { to: '/', label: 'Home' },
@@ -28,11 +29,9 @@ export default function Footer() {
                         <div className="lg:col-span-1">
                             <Link to="/" className="flex items-center space-x-2.5 mb-4">
                                 <div className="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center">
-                                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                    </svg>
+                                    <FaTrain className="w-4 h-4 text-white" />
                                 </div>
-                                <span className="font-display font-bold text-lg text-white">WB TrainGo</span>
+                                <span className="font-display font-bold text-lg text-white">TrainGo</span>
                             </Link>
                             <p className="text-sm text-gray-500 leading-relaxed mb-6 max-w-xs">
                                 Your intelligent gateway to West Bengal's railway network. Explore,
@@ -99,7 +98,7 @@ export default function Footer() {
                 <div className="border-t border-white/[0.04]">
                     <div className="container-section py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
                         <p className="text-xs text-gray-600">
-                            &copy; {new Date().getFullYear()} WB TrainGo. Built for demonstration purposes.
+                            &copy; {new Date().getFullYear()} TrainGo. Built for West Bengal railways.
                         </p>
                         <div className="flex items-center space-x-4 text-xs text-gray-600">
                             <Link to="/privacy" className="hover:text-gray-400 transition-colors">Privacy</Link>
