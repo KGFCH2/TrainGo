@@ -9,23 +9,23 @@ export default function TrainDetailsModal({ train, isOpen, onClose }) {
     return (
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-[100] flex justify-end">
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
                     {/* Backdrop */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="absolute inset-0 bg-surface-950/60 backdrop-blur-sm"
+                        className="absolute inset-0 bg-surface-950/80 backdrop-blur-sm"
                     />
 
-                    {/* Drawer Content - Sliding from Right */}
+                    {/* Modal Content - Centered */}
                     <motion.div
-                        initial={{ x: '100%' }}
-                        animate={{ x: 0 }}
-                        exit={{ x: '100%' }}
-                        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                        className="relative w-full max-w-lg bg-surface-900 border-l border-white/[0.08] shadow-2xl overflow-hidden h-full flex flex-col"
+                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+                        className="relative w-full max-w-2xl bg-surface-900 border border-white/[0.08] rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
                     >
                         {/* Header */}
                         <div className="p-6 border-b border-white/[0.04] flex items-start justify-between bg-surface-950/50">

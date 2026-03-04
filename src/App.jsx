@@ -186,19 +186,30 @@ function HomePage({ trains }) {
    ================================================ */
 function PageSection({ title, subtitle, children }) {
     return (
-        <div className="container-section py-12">
-            {title && (
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="text-center mb-8"
-                >
-                    <h1 className="heading-section text-3xl sm:text-4xl text-white mb-3">{title}</h1>
-                    {subtitle && <p className="text-gray-400 max-w-xl mx-auto">{subtitle}</p>}
-                </motion.div>
-            )}
-            {children}
+        <div className="relative min-h-[60vh]">
+            {/* Section Background Image */}
+            <div className="fixed inset-0 z-0 pointer-events-none opacity-10">
+                <img
+                    src="/hero-4.png"
+                    alt="Section Background"
+                    className="w-full h-full object-cover"
+                />
+            </div>
+
+            <div className="relative z-10 container-section py-12">
+                {title && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4 }}
+                        className="text-center mb-8"
+                    >
+                        <h1 className="heading-section text-3xl sm:text-4xl text-white mb-3 tracking-wider">{title}</h1>
+                        {subtitle && <p className="text-gray-400 max-w-xl mx-auto italic">{subtitle}</p>}
+                    </motion.div>
+                )}
+                {children}
+            </div>
         </div>
     );
 }
