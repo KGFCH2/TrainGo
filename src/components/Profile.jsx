@@ -53,15 +53,15 @@ export default function Profile() {
                     >
                         <source src="/Train_Video_Generation.mp4" type="video/mp4" />
                     </video>
-                    <div className="absolute inset-0 bg-gradient-to-r from-surface-950/20 to-surface-950/80" />
-                    <div className="absolute bottom-10 left-10 right-10">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent to-surface-950/90" />
+                    <div className="absolute top-10 left-10 right-10">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.5 }}
                         >
-                            <h3 className="text-2xl font-bold text-white mb-2">Track Your Journey</h3>
-                            <p className="text-sm text-gray-400 leading-relaxed italic">Join thousands of travelers navigating West Bengal's railway network with precision and ease.</p>
+                            <h3 className="text-3xl font-black text-slate-900 drop-shadow-md mb-2">Track Your Journey</h3>
+                            <p className="text-base text-slate-900 font-bold leading-relaxed italic drop-shadow max-w-sm">Join thousands of travelers navigating West Bengal's railway network with precision and ease.</p>
                         </motion.div>
                     </div>
                 </div>
