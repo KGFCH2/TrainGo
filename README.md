@@ -21,8 +21,9 @@ The platform simulates 1,050+ trains spanning 200+ stations across all 23 distri
 - **Interactive Seat Map 💺** — Visual coach selector with 5 classes (GEN, SL, 3A, 2A, 1A), real-time seat availability, and fare calculation.
 - **Multi-Step Booking Flow 🛤️** — 5-step guided booking: Search ➡️ Select Train ➡️ Seats ➡️ Passengers ➡️ Confirm.
 - **PDF Ticket Generation 🎫** — Professionally formatted e-tickets with QR placeholder, fare summary, and tricolor branding via jsPDF.
-- **Flip Cards 📇** — Express/Superfast/Intercity trains display route details on hover flip.
-- **Authentication 🔐** — Local sign-up/login with profile management.
+- **Dynamic Modal Popups 🪟** — Click on any train card to view a beautifully crafted fixed modal with full route details and schedule perfectly centered to the viewport.
+- **Real-World Train Data Integration 🚆** — Seeded with actual West Bengal train names (e.g., Darjeeling Mail, Vande Bharat, local routes) alongside simulated schedules.
+- **Authentication 🔐** — Local sign-up/login with profile management (Note: Data stored in browser `localStorage` for demo purposes).
 - **Dark Mode 🌙** — Professional dark theme optimized for railway booking.
 - **India Tricolor Signature 🇮🇳** — Subtle 3px gradient bar as a respectful national identity marker.
 - **Dedicated Info Pages ℹ️** — Privacy Policy, Terms of Service, FAQ (accordion), Help Center, About.
@@ -85,7 +86,9 @@ TrainGo/
 
 ## 📝 Licence
 
-This project is for educational and demonstration purposes. 🎓
+This project is licensed under the **[MIT License](LICENSE)**. 🎓
+For details on future feature implementations, API integration processes, and data security scaling details, please refer to the private documentation in `FUTURE_IMPLEMENTATIONS.md` (hidden natively via `.gitignore`).
+
 
 ---
 

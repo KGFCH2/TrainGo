@@ -91,7 +91,7 @@ Navigate to **My Tickets** 🎟️ to download the PDF e-ticket 📄 or Cancel �
 
 ### 💡 Train Search Tips
 - Filter by Type 🗂️ and Status ⏱️. Sort by Departure/Fare/Duration 📊.
-- Express/Superfast/Intercity trains have **flip cards** 📇 to see the full route on hover.
+- Click on any train card to view a **dynamic fixed modal popup** 🪟 with the full route and stoppage schedules perfectly centered over your view.
 
 ---
 
@@ -108,7 +108,9 @@ Here is the operational breakdown of each file inside the directory confirming t
 - **`postcss.config.js` ⚙️:** The processing engine configuring Tailwind and autoprefixing for CSS compilation.
 - **`README.md` 📖:** Project brief explaining features, tech stack, and structure.
 - **`INSTRUCTIONS.md` 📋:** Detailed step-by-step documentation (this file).
-- **`.gitignore` 🙈:** Specifies intentionally untracked files like `.extra_features.md` to be hidden from standard Git commits.
+- **`LICENSE` 📜:** The formal [MIT License](LICENSE) distributing the legal usage framework over the TrainGo repository.
+- **`FUTURE_IMPLEMENTATIONS.md` 🔮:** Un-tracked internal documentation defining the backend scale, data storage transition, and railway live data API implementations.
+- **`.gitignore` 🙈:** Specifies intentionally untracked files like `.extra_features.md` and `FUTURE_IMPLEMENTATIONS.md` to be hidden from standard Git commits.
 
 ### Source Files (`src/`) 💻
 - **`main.jsx` 🏁:** Entry point where React strictly renders `App.jsx` into the DOM.
@@ -121,7 +123,8 @@ Here is the operational breakdown of each file inside the directory confirming t
 - **`Hero.jsx` 🦸‍♂️:** Main landing section combining Three.js 3D backdrops with text intro elements.
 - **`HeroBackground.jsx` 🌌:** A specific decorative background component accompanying the Hero section animations via framer-motion.
 - **`TrainScene3D.jsx` 🧊:** Core 3D engine employing React Three Fiber to display animated 3D geometries (e.g. torus knots, star fields).
-- **`TrainCard.jsx` 💳:** UI component displaying single train information with a flip animation showing extended route tracking.
+- **`TrainCard.jsx` 💳:** UI component displaying single train information with a click interaction opening full route details in a modal.
+- **`TrainDetailsModal.jsx` 🪟:** A highly responsive fixed modal appearing perfectly in the user's viewport upon clicking the card.
 - **`TrainList.jsx` 📋:** Searchable list wrapping the multiple `TrainCard` components equipped with filtering logic.
 - **`BookingSection.jsx` 🎟️:** The main logical parent orchestrating the 5-step booking flow interface.
 - **`SeatMap.jsx` 💺:** Interactive graphical layout logic to toggle, select, and lock seats visually.
@@ -150,7 +153,7 @@ Here is the operational breakdown of each file inside the directory confirming t
 - **`pdfGenerator.js` 📄:** Heavily configured functionality consuming jsPDF to inject HTML ticket structures mathematically into downloadable PDFs.
 
 ### Public Directory (`public/`) 🖼️
-- **`WB_TrainGo.png` / `WB_TrainGo_1.png` / `WB_TrainGo_2.png` 📸:** Essential application thumbnail screenshots typically used for documentation references or favicons. They are perfectly okay to keep.
+- **`TrainGo.png` / `TrainGo_1.png` / `TrainGo_2.png` 📸:** Essential application thumbnail screenshots typically used for documentation references or favicons. They are perfectly okay to keep.
 
 > **Status Check ✅:** Everything is structurally perfectly integrated and intact. There are zero broken links, invalid references, or leftover boilerplate code files that require deletion. Any leftover React App logos have already been managed. You are perfectly good to proceed without wiping any file locally.
 
@@ -164,3 +167,19 @@ Here is the operational breakdown of each file inside the directory confirming t
 | 3D scene not rendering | Ensure WebGL is enabled in your browser 🖥️ |
 | Blank page on navigation | Clear browser cache and perform hard refresh 🔄 |
 | PDF download not working | Check for active pop-up blockers ❌ |
+
+---
+
+## 🔒 Data Storage and Security
+
+To keep this project fast, seamless, and fully client-side, user login properties and generated tickets are currently stored locally inside your browser's **localStorage**.
+
+> ⚠️ **Is this safe for production?**  
+> **No.** Storing sensitive credentials (like passwords) and booking data purely in `localStorage` without a server means anyone running code on your browser, or physically accessing your computer, could potentially retrieve it. 
+
+### 🛡️ Real-World Transition
+If deploying this to a real production environment with live payments, you would need to:
+1. **Remove localStorage** handling from `AuthContext.jsx`.
+2. Integrate a backend Database (like MongoDB, PostgreSQL, or Firebase) 💾.
+3. Validate user identities with **JWT (JSON Web Tokens)** stored in securely encrypted HTTP-Only cookies 🍪.
+4. Hash all passwords via **Bcrypt** or **Argon2** 🔑.
