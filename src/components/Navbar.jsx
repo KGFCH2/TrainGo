@@ -33,7 +33,7 @@ export default function Navbar() {
     return (
         <nav
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-                ? 'bg-surface-950/40 backdrop-blur-3xl border-b border-white/[0.05] shadow-2xl shadow-black/20'
+                ? 'bg-surface-950/10 backdrop-blur-xl border-b border-white/[0.02] shadow-sm shadow-black/10'
                 : 'bg-transparent'
                 }`}
         >
