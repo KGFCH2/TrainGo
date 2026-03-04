@@ -3,12 +3,12 @@
     "short_name": "TrainGo",
     "icons": [
         {
-            "src": "/favicon.png",
+            "src": "WB_TrainGo_2.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "/favicon.png",
+            "src": "WB_TrainGo_2.png",
             "sizes": "512x512",
             "type": "image/png"
         }
