@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* ============================================
-   WB TrainGo — Professional Global Styles
+   TrainGo — Professional Global Styles
    ============================================ */
 
 @layer base {
@@ -11,6 +11,7 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        font-family: 'Times New Roman', Times, serif !important;
     }
 
     html {
@@ -19,7 +20,8 @@
     }
 
     body {
-        @apply bg-surface-950 text-white font-sans;
+        font-family: 'Times New Roman', Times, serif !important;
+        @apply bg-surface-950 text-white;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
@@ -72,7 +74,8 @@
 
     /* Section heading */
     .heading-section {
-        @apply text-3xl sm:text-4xl lg:text-5xl font-display font-bold tracking-tight;
+        @apply text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight;
+        font-family: 'Times New Roman', Times, serif;
     }
 
     /* Tricolor signature bar */

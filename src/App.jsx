@@ -9,6 +9,7 @@ import { BookingProvider } from './context/BookingContext';
 
 import { generateAllTrains } from './data/generateTrains';
 
+import { FiSearch, FiCheckCircle, FiDownload } from 'react-icons/fi';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Hero from './components/Hero';
@@ -61,46 +62,34 @@ function HomePage({ trains }) {
             <Hero />
 
             {/* Features Section */}
-            <section className="container-section py-24">
+            <section className="container-section py-12">
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-100px' }}
                     transition={{ duration: 0.6 }}
-                    className="text-center mb-16"
+                    className="text-center mb-8"
                 >
-                    <h2 className="heading-section text-3xl sm:text-4xl text-white mb-4">Why WB TrainGo?</h2>
-                    <p className="text-gray-400 max-w-xl mx-auto">
+                    <h2 className="heading-section text-2xl sm:text-3xl text-white mb-2">Why TrainGo?</h2>
+                    <p className="text-gray-400 text-sm max-w-xl mx-auto">
                         Built for the modern traveler. Every feature designed to simplify your journey.
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {[
                         {
-                            icon: (
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                            ),
+                            icon: <FiSearch className="w-8 h-8" />,
                             title: 'Intelligent Search',
                             desc: 'Find any train across West Bengal in milliseconds. Filter by type, district, station, or route.',
                         },
                         {
-                            icon: (
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                                </svg>
-                            ),
+                            icon: <FiCheckCircle className="w-8 h-8" />,
                             title: 'Seamless Booking',
                             desc: 'Five-step guided booking with interactive seat maps, passenger management, and instant confirmation.',
                         },
                         {
-                            icon: (
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
-                            ),
+                            icon: <FiDownload className="w-8 h-8" />,
                             title: 'PDF Tickets',
                             desc: 'Download professional e-tickets as PDF with complete booking details and QR code.',
                         },
@@ -111,32 +100,32 @@ function HomePage({ trains }) {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: '-50px' }}
                             transition={{ delay: i * 0.15, duration: 0.5 }}
-                            className="card p-8 group"
+                            className="card p-6 group"
                         >
-                            <div className="w-12 h-12 rounded-xl bg-primary-500/10 border border-primary-500/20 flex items-center justify-center text-primary-400 mb-5 group-hover:bg-primary-500/20 transition-colors">
+                            <div className="w-10 h-10 rounded-xl bg-primary-500/10 border border-primary-500/20 flex items-center justify-center text-primary-400 mb-4 group-hover:bg-primary-500/20 transition-colors">
                                 {feature.icon}
                             </div>
-                            <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
-                            <p className="text-sm text-gray-400 leading-relaxed">{feature.desc}</p>
+                            <h3 className="text-base font-semibold text-white mb-1.5">{feature.title}</h3>
+                            <p className="text-xs text-gray-400 leading-relaxed">{feature.desc}</p>
                         </motion.div>
                     ))}
                 </div>
             </section>
 
             {/* How It Works */}
-            <section className="container-section py-24 border-t border-white/[0.04]">
+            <section className="container-section py-12 border-t border-white/[0.04]">
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-100px' }}
                     transition={{ duration: 0.6 }}
-                    className="text-center mb-16"
+                    className="text-center mb-8"
                 >
-                    <h2 className="heading-section text-3xl sm:text-4xl text-white mb-4">How It Works</h2>
-                    <p className="text-gray-400 max-w-xl mx-auto">Three simple steps to your next journey.</p>
+                    <h2 className="heading-section text-2xl sm:text-3xl text-white mb-2">How It Works</h2>
+                    <p className="text-gray-400 text-sm max-w-xl mx-auto">Three simple steps to your next journey.</p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                     {[
                         { step: '01', title: 'Search', desc: 'Enter your source and destination to discover available trains on the route.' },
                         { step: '02', title: 'Select & Book', desc: 'Choose your train, pick seats from the interactive map, and add passenger details.' },
@@ -150,30 +139,30 @@ function HomePage({ trains }) {
                             transition={{ delay: i * 0.2, duration: 0.5 }}
                             className="text-center"
                         >
-                            <div className="text-5xl font-display font-bold text-gradient mb-4">{item.step}</div>
-                            <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
-                            <p className="text-sm text-gray-400">{item.desc}</p>
+                            <div className="text-4xl font-display font-bold text-gradient mb-3">{item.step}</div>
+                            <h3 className="text-base font-semibold text-white mb-1.5">{item.title}</h3>
+                            <p className="text-xs text-gray-400">{item.desc}</p>
                         </motion.div>
                     ))}
                 </div>
             </section>
 
             {/* CTA */}
-            <section className="container-section py-24">
+            <section className="container-section py-12">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="card p-12 sm:p-16 text-center bg-gradient-to-br from-primary-950/50 via-surface-900 to-surface-900 border-primary-500/10"
+                    className="card p-8 sm:p-12 text-center bg-gradient-to-br from-primary-950/50 via-surface-900 to-surface-900 border-primary-500/10"
                 >
-                    <h2 className="heading-section text-3xl sm:text-4xl text-white mb-4">Ready to Explore?</h2>
-                    <p className="text-gray-400 max-w-md mx-auto mb-8">
+                    <h2 className="heading-section text-2xl sm:text-3xl text-white mb-2">Ready to Explore?</h2>
+                    <p className="text-gray-400 text-sm max-w-md mx-auto mb-6">
                         Browse {trains.length.toLocaleString()}+ trains across West Bengal's entire railway network.
                     </p>
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <a href="/trains" className="btn-primary text-lg px-8 py-4">Browse Trains</a>
-                        <a href="/booking" className="btn-secondary text-lg px-8 py-4">Book Now</a>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                        <a href="/trains" className="btn-primary text-base px-6 py-3">Browse Trains</a>
+                        <a href="/booking" className="btn-secondary text-base px-6 py-3">Book Now</a>
                     </div>
                 </motion.div>
             </section>
@@ -196,16 +185,16 @@ function PageSection({ title, subtitle, children }) {
                 />
             </div>
 
-            <div className="relative z-10 container-section py-12">
+            <div className="relative z-10 container-section py-4 sm:py-8">
                 {title && (
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4 }}
-                        className="text-center mb-8"
+                        className="text-center mb-4"
                     >
-                        <h1 className="heading-section text-3xl sm:text-4xl text-white mb-3 tracking-wider">{title}</h1>
-                        {subtitle && <p className="text-gray-400 max-w-xl mx-auto italic">{subtitle}</p>}
+                        <h1 className="heading-section text-xl sm:text-3xl text-white mb-1 tracking-wider">{title}</h1>
+                        {subtitle && <p className="text-gray-400 max-w-xl mx-auto italic text-xs sm:text-sm">{subtitle}</p>}
                     </motion.div>
                 )}
                 {children}
@@ -246,7 +235,7 @@ function AppContent() {
             <div className="min-h-screen flex items-center justify-center bg-surface-950">
                 <div className="flex flex-col items-center space-y-4">
                     <div className="w-10 h-10 border-2 border-primary-500/30 border-t-primary-500 rounded-full animate-spin" />
-                    <span className="text-sm text-gray-500 font-display">Initializing WB TrainGo...</span>
+                    <span className="text-sm text-gray-500 font-display">Initializing TrainGo...</span>
                 </div>
             </div>
         );
