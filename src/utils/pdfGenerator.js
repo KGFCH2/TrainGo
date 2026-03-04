@@ -58,53 +58,52 @@ export function generateTicketPDF(booking) {
     doc.setFillColor(255, 255, 255);
     doc.setDrawColor(...border);
     doc.setLineWidth(0.2);
-    doc.roundedRect(margin, y, contentWidth, 30, 2, 2, 'FD');
+    doc.roundedRect(margin, y, contentWidth, 35, 2, 2, 'FD');
 
     doc.setTextColor(...textGray);
     doc.setFontSize(7);
     doc.text('FROM', margin + 8, y + 8);
-    doc.text('TO', margin + contentWidth / 2 + 15, y + 8);
+    doc.text('TO', margin + contentWidth / 2 + 10, y + 8);
 
     doc.setTextColor(...primary);
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(13);
-    doc.text(booking.source, margin + 8, y + 16);
-    doc.text(booking.destination, margin + contentWidth / 2 + 15, y + 16);
+    doc.setFontSize(11);
+    doc.text(booking.source, margin + 8, y + 15, { maxWidth: contentWidth / 2 - 20 });
+    doc.text(booking.destination, margin + contentWidth / 2 + 10, y + 15, { maxWidth: contentWidth / 2 - 20 });
 
     // Draw an arrow or line between stations
     doc.setDrawColor(...accent);
     doc.setLineWidth(0.5);
-    doc.line(margin + contentWidth / 2 - 10, y + 15, margin + contentWidth / 2 + 10, y + 15);
+    doc.line(margin + contentWidth / 2 - 12, y + 14, margin + contentWidth / 2 + 3, y + 14);
 
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...textGray);
-    doc.text(booking.departure || '--', margin + 8, y + 23);
-    doc.text(booking.arrival || '--', margin + contentWidth / 2 + 15, y + 23);
+    doc.text(booking.departure || '--', margin + 8, y + 26);
+    doc.text(booking.arrival || '--', margin + contentWidth / 2 + 10, y + 26);
 
-    y += 35;
+    y += 40;
 
     // Section 2: Train & Booking Details
     doc.setFillColor(248, 250, 252);
-    doc.roundedRect(margin, y, contentWidth, 20, 2, 2, 'F');
+    doc.roundedRect(margin, y, contentWidth, 22, 2, 2, 'F');
 
-    const colWidth = contentWidth / 4;
     doc.setFontSize(7);
     doc.setTextColor(...textGray);
-    doc.text('TRAIN', margin + 8, y + 7);
-    doc.text('CLASS / COACH', margin + colWidth + 8, y + 7);
-    doc.text('SEAT NO.', margin + colWidth * 2 + 8, y + 7);
-    doc.text('STATUS', margin + colWidth * 3 + 8, y + 7);
+    doc.text('TRAIN', margin + 8, y + 8);
+    doc.text('CLASS / COACH', margin + 85, y + 8);
+    doc.text('SEAT NO.', margin + 125, y + 8);
+    doc.text('STATUS', margin + 160, y + 8);
 
     doc.setTextColor(...primary);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(9);
-    doc.text(`${booking.trainNo} - ${booking.trainName}`, margin + 8, y + 13);
-    doc.text(`${booking.coach || 'GEN'}`, margin + colWidth + 8, y + 13);
-    doc.text(`${booking.seatNo || 'WL'}`, margin + colWidth * 2 + 8, y + 13);
-    doc.text(`${booking.status}`, margin + colWidth * 3 + 8, y + 13);
+    doc.text(`${booking.trainNo} - ${booking.trainName}`, margin + 8, y + 14, { maxWidth: 70 });
+    doc.text(`${booking.coach || 'GEN'}`, margin + 85, y + 14);
+    doc.text(`${booking.seatNo || 'WL'}`, margin + 125, y + 14, { maxWidth: 30 });
+    doc.text(`${booking.status}`, margin + 160, y + 14);
 
-    y += 25;
+    y += 30;
 
     // Section 3: Passenger Information
     doc.setTextColor(...primary);
@@ -133,9 +132,9 @@ export function generateTicketPDF(booking) {
         doc.setTextColor(...textDark);
         doc.setFont('helvetica', 'normal');
         doc.text(`${idx + 1}`, margin + 5, y + 5.5);
-        doc.text(p.name, margin + 20, y + 5.5);
+        doc.text(p.name, margin + 20, y + 5.5, { maxWidth: 85 });
         doc.text(`${p.age}`, margin + 110, y + 5.5);
-        doc.text(p.gender, margin + 140, y + 5.5);
+        doc.text(p.gender, margin + 140, y + 5.5, { maxWidth: 20 });
         y += 8;
     });
 
@@ -148,12 +147,52 @@ export function generateTicketPDF(booking) {
     doc.setDrawColor(...border);
     doc.roundedRect(margin, bottomY, 35, 35, 1, 1, 'S');
 
-    // Simple QR Pattern
+    // Realistic QR Pattern Simulation
+    const qrSize = 25; // 25x25 grid
+    const qrX = margin + 5;
+    const qrY = bottomY + 5;
+
     doc.setFillColor(...textDark);
-    for (let i = 0; i < 7; i++) {
-        for (let j = 0; j < 7; j++) {
-            if ((i * j + i + j) % 3 === 0) {
-                doc.rect(margin + 4 + i * 4, bottomY + 4 + j * 4, 3, 3, 'F');
+
+    // Draw 3 position finder markers (7x7)
+    const drawFinder = (x, y) => {
+        doc.setFillColor(...textDark);
+        doc.rect(qrX + x, qrY + y, 7, 7, 'F'); // Outer boundary
+        doc.setFillColor(255, 255, 255);
+        doc.rect(qrX + x + 1, qrY + y + 1, 5, 5, 'F'); // Inner whitespace
+        doc.setFillColor(...textDark);
+        doc.rect(qrX + x + 2, qrY + y + 2, 3, 3, 'F'); // Inner core
+    };
+
+    drawFinder(0, 0); // Top-left
+    drawFinder(18, 0); // Top-right
+    drawFinder(0, 18); // Bottom-left
+
+    // Pseudo-random seeded payload for a consistent but complex pattern
+    let seed = 12345;
+    if (booking.pnr) {
+        for (let i = 0; i < booking.pnr.length; i++) {
+            seed += booking.pnr.charCodeAt(i);
+        }
+    }
+    const pseudoRand = () => {
+        const x = Math.sin(seed++) * 10000;
+        return x - Math.floor(x);
+    };
+
+    // Draw the dense dot payload
+    doc.setFillColor(...textDark);
+    for (let i = 0; i < qrSize; i++) {
+        for (let j = 0; j < qrSize; j++) {
+            // Keep out zones for the 3 finders
+            const inTL = i < 8 && j < 8;
+            const inTR = i >= 17 && j < 8;
+            const inBL = i < 8 && j >= 17;
+
+            if (!inTL && !inTR && !inBL) {
+                if (pseudoRand() > 0.5) {
+                    doc.rect(qrX + i, qrY + j, 1, 1, 'F');
+                }
             }
         }
     }
