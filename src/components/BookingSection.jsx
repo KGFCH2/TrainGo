@@ -8,7 +8,7 @@ import { getAllDistricts } from '../data/stations';
 import SeatMap from './SeatMap';
 import { FiSearch, FiArrowRight, FiUser, FiMapPin, FiCheck, FiChevronRight, FiChevronLeft, FiAlertCircle } from 'react-icons/fi';
 
-const STEPS = ['Search', 'Select Train', 'Seats', 'Passengers', 'Confirm'];
+const STEPS = ['Search', 'Select Train', 'Seats', 'Passengers', 'Payment', 'Confirm'];
 
 export default function BookingSection() {
     const navigate = useNavigate();
@@ -25,6 +25,7 @@ export default function BookingSection() {
     const [selectedTrain, setSelectedTrain] = useState(location.state?.selectedTrain || null);
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [passengers, setPassengers] = useState([{ name: '', age: '', gender: 'male' }]);
+    const [paymentMethod, setPaymentMethod] = useState('upi');
     const [bookingResult, setBookingResult] = useState(null);
     const [error, setError] = useState('');
 
@@ -55,6 +56,12 @@ export default function BookingSection() {
         setStep(4);
     };
 
+    const handlePaymentNext = () => {
+        if (!paymentMethod) { setError('Select a payment method'); return; }
+        setError('');
+        setStep(5);
+    };
+
     const handleConfirm = () => {
         if (!isAuthenticated) { navigate('/profile'); return; }
         const coach = selectedSeats[0]?.split('-')[0] || 'GEN';
@@ -77,9 +84,10 @@ export default function BookingSection() {
             age: passengers[0].age,
             gender: passengers[0].gender,
             fare,
+            paymentMethod,
         });
         setBookingResult(booking);
-        setStep(5);
+        setStep(6);
     };
 
     const goBack = () => { setError(''); setStep(s => Math.max(0, s - 1)); };
@@ -87,16 +95,16 @@ export default function BookingSection() {
     return (
         <div className="min-h-screen pt-4">
             {/* Stepper */}
-            {step < 5 && (
+            {step < 6 && (
                 <div className="card p-4 mb-6">
                     <div className="flex items-center justify-between max-w-2xl mx-auto">
-                        {STEPS.slice(0, 5).map((label, i) => (
+                        {STEPS.map((label, i) => (
                             <div key={label} className="flex items-center">
                                 <div className={`flex items-center justify-center w-8 h-8 rounded-full text-xs font-semibold transition-colors ${i < step ? 'bg-primary-500 text-white' : i === step ? 'bg-primary-500/20 text-primary-400 ring-2 ring-primary-500' : 'bg-white/[0.04] text-gray-600'}`}>
                                     {i < step ? <FiCheck className="w-4 h-4" /> : i + 1}
                                 </div>
-                                <span className={`hidden sm:block ml-2 text-xs ${i <= step ? 'text-white' : 'text-gray-600'}`}>{label}</span>
-                                {i < 4 && <FiChevronRight className="mx-2 text-gray-700 w-4 h-4" />}
+                                <span className={`hidden sm:block ml-2 text-[10px] uppercase font-bold tracking-widest ${i <= step ? 'text-white' : 'text-gray-600'}`}>{label}</span>
+                                {i < STEPS.length - 1 && <FiChevronRight className="mx-1 sm:mx-2 text-gray-700 w-3 h-3 sm:w-4 sm:h-4" />}
                             </div>
                         ))}
                     </div>
@@ -234,13 +242,42 @@ export default function BookingSection() {
                             ))}
                         </div>
                         <motion.button whileTap={{ scale: 0.95 }} onClick={handlePassengerNext} className="btn-primary w-full mt-4 py-3">
+                            Proceed to Payment
+                        </motion.button>
+                    </motion.div>
+                )}
+
+                {/* Step 4: Payment */}
+                {step === 4 && (
+                    <motion.div key="payment" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }}>
+                        <div className="flex items-center justify-between mb-4">
+                            <button onClick={goBack} className="btn-ghost flex items-center space-x-1 text-sm"><FiChevronLeft className="w-4 h-4" /><span>Back</span></button>
+                            <h3 className="text-sm font-semibold text-white">Payment Method</h3>
+                        </div>
+                        <div className="card p-6 space-y-4">
+                            <div className="space-y-3">
+                                {['upi', 'card', 'netbanking'].map(method => (
+                                    <label key={method} className={`flex items-center p-4 border rounded-xl cursor-pointer transition-colors ${paymentMethod === method ? 'border-primary-500 bg-primary-500/10' : 'border-white/[0.04] hover:bg-white/[0.02]'}`}>
+                                        <input type="radio" name="paymentMethod" value={method} checked={paymentMethod === method} onChange={(e) => setPaymentMethod(e.target.value)} className="hidden" />
+                                        <div className={`w-4 h-4 rounded-full border flex items-center justify-center mr-3 ${paymentMethod === method ? 'border-primary-500' : 'border-gray-500'}`}>
+                                            {paymentMethod === method && <div className="w-2 h-2 rounded-full bg-primary-500" />}
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="text-sm font-bold text-white uppercase tracking-wider">{method === 'upi' ? 'UPI / QR Code' : method === 'card' ? 'Credit / Debit Card' : 'Net Banking'}</span>
+                                            <span className="text-[10px] text-gray-500 uppercase">{method === 'upi' ? 'Google Pay, PhonePe, Paytm' : method === 'card' ? 'Visa, Mastercard, RuPay' : 'All major banks supported'}</span>
+                                        </div>
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
+                        <motion.button whileTap={{ scale: 0.95 }} onClick={handlePaymentNext} className="btn-primary w-full mt-4 py-3 text-base">
                             Review Booking
                         </motion.button>
                     </motion.div>
                 )}
 
-                {/* Step 4: Confirm */}
-                {step === 4 && selectedTrain && (
+                {/* Step 5: Confirm */}
+                {step === 5 && selectedTrain && (
                     <motion.div key="confirm" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }}>
                         <div className="flex items-center justify-between mb-4">
                             <button onClick={goBack} className="btn-ghost flex items-center space-x-1 text-sm"><FiChevronLeft className="w-4 h-4" /><span>Back</span></button>
@@ -280,6 +317,13 @@ export default function BookingSection() {
                                 </div>
                             </div>
                             <div className="h-px bg-white/[0.04]" />
+                            <div>
+                                <h4 className="text-xs uppercase tracking-wider text-gray-600 mb-2">Payment Option</h4>
+                                <div className="flex items-center gap-2">
+                                    <span className="badge bg-green-500/20 text-green-400 capitalize">{paymentMethod === 'upi' ? 'UPI / QR' : paymentMethod === 'card' ? 'Credit/Debit Card' : 'Net Banking'}</span>
+                                </div>
+                            </div>
+                            <div className="h-px bg-white/[0.04]" />
                             <div className="flex items-center justify-between">
                                 <span className="text-gray-500">Total Fare</span>
                                 <span className="text-2xl font-bold text-primary-400">₹{(() => {
@@ -300,8 +344,8 @@ export default function BookingSection() {
                     </motion.div>
                 )}
 
-                {/* Step 5: Success */}
-                {step === 5 && bookingResult && (
+                {/* Step 6: Success */}
+                {step === 6 && bookingResult && (
                     <motion.div key="success" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="card p-8 text-center max-w-lg mx-auto">
                         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 200 }} className="w-16 h-16 mx-auto mb-4 rounded-full bg-green-500/20 flex items-center justify-center">
                             <FiCheck className="w-8 h-8 text-green-400" />
