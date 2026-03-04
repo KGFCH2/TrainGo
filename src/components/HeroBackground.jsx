@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 /* ─────────────────────────────────────────────
    Animated Hero Background
@@ -94,27 +94,64 @@ function ParticleField() {
     );
 }
 
+const heroImages = [
+    '/hero-1.png',
+    '/hero-2.png',
+    '/hero-3.png'
+];
+
 export default function HeroBackground() {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+        }, 6000);
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <div className="absolute inset-0 overflow-hidden bg-surface-950">
+            {/* ── Background Slideshow ── */}
+            <div className="absolute inset-0 z-0">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={currentImageIndex}
+                        initial={{ opacity: 0, scale: 1.1 }}
+                        animate={{ opacity: 0.6, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 2, ease: "easeInOut" }}
+                        className="absolute inset-0"
+                    >
+                        <img
+                            src={heroImages[currentImageIndex]}
+                            alt="Train Background"
+                            className="w-full h-full object-cover"
+                        />
+                    </motion.div>
+                </AnimatePresence>
+                {/* Additional overlay for readability */}
+                <div className="absolute inset-0 bg-surface-950/40 mix-blend-multiply" />
+            </div>
+
             {/* ── Base gradient ── */}
-            <div className="absolute inset-0 bg-gradient-to-b from-surface-950 via-primary-950/30 to-surface-950" />
+            <div className="absolute inset-0 z-10 bg-gradient-to-b from-surface-950/70 via-primary-950/20 to-surface-950" />
 
             {/* ── Aurora mesh — slow moving gradients ── */}
-            <div className="absolute inset-0 hero-aurora">
+            <div className="absolute inset-0 z-10 hero-aurora">
                 <div className="hero-aurora-layer hero-aurora-1" />
                 <div className="hero-aurora-layer hero-aurora-2" />
                 <div className="hero-aurora-layer hero-aurora-3" />
             </div>
 
             {/* ── Luminous orbs ── */}
-            <Orb className="top-[10%] left-[15%]" color="#3b82f6" size={500} delay={0} duration={25} />
-            <Orb className="top-[60%] right-[10%]" color="#8b5cf6" size={400} delay={3} duration={22} />
-            <Orb className="bottom-[5%] left-[40%]" color="#06b6d4" size={350} delay={6} duration={28} />
-            <Orb className="top-[30%] right-[30%]" color="#f97316" size={250} delay={2} duration={20} />
+            <Orb className="top-[10%] left-[15%] z-10" color="#3b82f6" size={500} delay={0} duration={25} />
+            <Orb className="top-[60%] right-[10%] z-10" color="#8b5cf6" size={400} delay={3} duration={22} />
+            <Orb className="bottom-[5%] left-[40%] z-10" color="#06b6d4" size={350} delay={6} duration={28} />
+            <Orb className="top-[30%] right-[30%] z-10" color="#f97316" size={250} delay={2} duration={20} />
 
             {/* ── Animated route lines (SVG) ── */}
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+            <svg className="absolute inset-0 w-full h-full z-10" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
                 <defs>
                     <linearGradient id="routeGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
                         <stop offset="0%" stopColor="#3b82f6" stopOpacity="0" />
@@ -194,18 +231,18 @@ export default function HeroBackground() {
             </svg>
 
             {/* ── Dot grid pattern ── */}
-            <div className="absolute inset-0 hero-dot-grid opacity-[0.03]" />
+            <div className="absolute inset-0 z-10 hero-dot-grid opacity-[0.03]" />
 
             {/* ── Particle field ── */}
             <ParticleField />
 
             {/* ── Radial vignette ── */}
-            <div className="absolute inset-0" style={{
-                background: 'radial-gradient(ellipse 80% 60% at 50% 45%, transparent 30%, rgba(2,6,23,0.6) 100%)',
+            <div className="absolute inset-0 z-10" style={{
+                background: 'radial-gradient(ellipse 80% 60% at 50% 45%, transparent 30%, rgba(2,6,23,0.7) 100%)',
             }} />
 
             {/* ── Bottom fade to content ── */}
-            <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-surface-950 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 h-40 z-20 bg-gradient-to-t from-surface-950 to-transparent" />
         </div>
     );
 }

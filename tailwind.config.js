@@ -21,8 +21,8 @@ export default {
                 'indian-green': '#138808',
             },
             fontFamily: {
-                sans: ['Rozha One', 'Inter', 'system-ui', 'sans-serif'],
-                display: ['Rozha One', 'Space Grotesk', 'sans-serif'],
+                sans: ['Times New Roman', 'Times', 'serif'],
+                display: ['Times New Roman', 'Times', 'serif'],
             },
             animation: {
                 'float': 'float 6s ease-in-out infinite',
