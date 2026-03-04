@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { FiSearch, FiArrowRight, FiActivity, FiMapPin, FiClock, FiDatabase } from 'react-icons/fi';
 import HeroBackground from './HeroBackground';
 
@@ -115,14 +116,14 @@ export default function Hero() {
                     transition={{ delay: 1.3, duration: 0.8 }}
                     className="flex flex-col sm:flex-row items-center justify-center gap-4 px-4"
                 >
-                    <a href="/trains" className="btn-primary text-lg sm:text-xl px-8 py-4 sm:px-10 sm:py-5 flex items-center space-x-3 w-full sm:w-auto justify-center shadow-2xl shadow-primary-500/20">
+                    <Link to="/trains" className="btn-primary text-lg sm:text-xl px-8 py-4 sm:px-10 sm:py-5 flex items-center space-x-3 w-full sm:w-auto justify-center shadow-2xl shadow-primary-500/20">
                         <FiSearch className="w-5 h-5 sm:w-6 sm:h-6" />
                         <span>Search Trains</span>
-                    </a>
-                    <a href="/booking" className="btn-secondary text-lg sm:text-xl px-8 py-4 sm:px-10 sm:py-5 flex items-center space-x-3 w-full sm:w-auto justify-center">
+                    </Link>
+                    <Link to="/booking" className="btn-secondary text-lg sm:text-xl px-8 py-4 sm:px-10 sm:py-5 flex items-center space-x-3 w-full sm:w-auto justify-center">
                         <FiArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
                         <span>Book Tickets</span>
-                    </a>
+                    </Link>
                 </motion.div>
 
                 {/* Stats */}

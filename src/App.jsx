@@ -1,5 +1,5 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from 'react-hot-toast';
 
@@ -162,8 +162,8 @@ function HomePage({ trains }) {
                         Browse {trains.length.toLocaleString()}+ trains across West Bengal's entire railway network.
                     </p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                        <a href="/trains" className="btn-primary text-base px-6 py-3">Browse Trains</a>
-                        <a href="/booking" className="btn-secondary text-base px-6 py-3">Book Now</a>
+                        <Link to="/trains" className="btn-primary text-base px-6 py-3">Browse Trains</Link>
+                        <Link to="/booking" className="btn-secondary text-base px-6 py-3">Book Now</Link>
                     </div>
                 </motion.div>
             </section>
@@ -286,7 +286,7 @@ function AppContent() {
                                     <PageSection title="404" subtitle="Page not found">
                                         <div className="text-center py-20">
                                             <p className="text-gray-400 mb-6">The page you're looking for doesn't exist.</p>
-                                            <a href="/" className="btn-primary">Go Home</a>
+                                            <Link to="/" className="btn-primary">Go Home</Link>
                                         </div>
                                     </PageSection>
                                 } />
